@@ -1,0 +1,167 @@
+import type React from "react"
+import { useState, useEffect } from "react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
+import { Button } from "./ui/button"
+import { Input } from "./ui/input"
+import { Label } from "./ui/label"
+import { AccessibilityWidget } from "./accessibility-widget"
+import { AlertTriangle, MousePointer, Keyboard, Settings } from "lucide-react"
+import { useNavigate } from "react-router"
+
+export function FrustrationForm() {
+  const navigate = useNavigate()
+  const [showWidget, setShowWidget] = useState(false)
+  const [formData, setFormData] = useState({
+    name: "",
+  })
+  const [attemptedDirectInput, setAttemptedDirectInput] = useState(false)
+  const [shakeForm, setShakeForm] = useState(false)
+  const [cursorPosition, setCursorPosition] = useState({ x: 200, y: 200 }) // Added cursor position state to manage virtual cursor from parent
+  const [isTyping, setIsTyping] = useState(false)
+
+  useEffect(() => {
+    // Show widget after a brief delay
+    const timer = setTimeout(() => setShowWidget(true), 2000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  const handleDirectInput = () => {
+    setAttemptedDirectInput(true)
+    setShakeForm(true)
+    setTimeout(() => setShakeForm(false), 500)
+  }
+
+  const handleWidgetInput = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }))
+  }
+
+  const handleCursorMove = (newPosition: { x: number; y: number }) => {
+    setCursorPosition(newPosition)
+  }
+
+  const handleTypingState = (typing: boolean) => {
+    setIsTyping(typing)
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (formData.name) {
+      setTimeout(() => {
+        navigate('/problem-with-overlay');
+      }, 1000)
+    }
+  }
+
+  const isFormComplete = !!formData.name
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-background to-muted p-4">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center space-y-4 mb-8">
+          <h1 className="text-4xl font-bold text-foreground">Contact Us</h1>
+            <p className="text-lg text-muted-foreground">
+            Use this accessible contact form to reach out to us. Our integrated widget ensures everyone can interact with the form easily, regardless of their input method.
+            </p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          {/* Form Section */}
+          <div className="space-y-6">
+            <Card className={`${shakeForm ? "shake" : ""} ${attemptedDirectInput ? "pulse-warning" : ""}`}>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <MousePointer className="h-5 w-5" />
+                  Get Started
+                </CardTitle>
+                <CardDescription>Please fill out your name</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit}>
+                  <div className="my-4">
+                    <Label htmlFor="name">Name</Label>
+                    <Input
+                      id="name"
+                      value={formData.name}
+                      onChange={(e) => handleDirectInput()}
+                      onFocus={handleDirectInput}
+                      onClick={handleDirectInput}
+                      placeholder="Enter your full name"
+                      className="cursor-not-allowed"
+                    />
+                  </div>
+
+                  <Button type="submit" className="w-full" disabled={!isFormComplete}>
+                    Send Message
+                  </Button>
+                </form>
+
+                {attemptedDirectInput && (
+                  <div className="mt-4 p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
+                    <div className="flex items-center gap-2 text-destructive">
+                      <AlertTriangle className="h-4 w-4" />
+                      <p className="text-sm font-medium">
+                        Direct input disabled! Please use the accessibility widget to interact with this form.
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Instructions */}
+            <Card className="bg-secondary border-secondary">
+              <CardContent>
+                <div className="flex items-start gap-3">
+                  <Keyboard className="h-5 w-5 text-white" />
+                  <div>
+                    <h3 className="font-semibold text-secondary-foreground mb-2">How to use this form:</h3>
+                    <ul className="text-sm text-secondary-foreground space-y-1">
+                      <li>• Keyboard and mouse input are disabled for better accessibility</li>
+                      <li>• Use the accessibility widget on the right</li>
+                      <li>• Navigate using the widget's virtual controls</li>
+                      <li>• This ensures equal access for all users</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="lg:sticky lg:top-4">
+            {showWidget ? (
+              <AccessibilityWidget
+                formData={formData}
+                onInputChange={handleWidgetInput}
+                onSubmit={handleSubmit}
+                isFormComplete={isFormComplete}
+                cursorPosition={cursorPosition}
+                onCursorMove={handleCursorMove}
+                onTypingState={handleTypingState}
+              />
+            ) : (
+              <Card className="bg-muted/50 border-dashed border-2">
+                <CardContent className="pt-6 text-center">
+                  <div className="animate-pulse">
+                    <Settings className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
+                    <p className="text-muted-foreground">Loading accessibility widget...</p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        </div>
+      </div>
+      {showWidget && (
+        <div
+          className="virtual-cursor"
+          style={{
+            left: cursorPosition.x,
+            top: cursorPosition.y,
+            transform: isTyping ? "scale(1.2)" : "scale(1)",
+          }}
+        />
+      )}
+    </div>
+  )
+}
