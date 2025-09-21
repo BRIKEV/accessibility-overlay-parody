@@ -10,6 +10,52 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Accessibility Overlay Parody – Why Widgets Are Not Accessibility" },
+    {
+      name: "description",
+      content:
+        "A parody demo showing how frustrating accessibility overlay widgets can be. Real accessibility is built with WCAG and semantic HTML, not forced plugins.",
+    },
+    {
+      name: "keywords",
+      content:
+        "accessibility, a11y, accessibility overlay, accessibility widgets, WCAG, web accessibility, semantic HTML, assistive technology, overlays critique, parody",
+    },
+    // Open Graph
+    {
+      property: "og:title",
+      content:
+        "Accessibility Overlay Parody – Why Widgets Are Not Accessibility",
+    },
+    {
+      property: "og:description",
+      content:
+        "Try filling out a form using a fake accessibility widget, then learn why overlays are not the solution. A parody demo about real accessibility.",
+    },
+    { property: "og:type", content: "website" },
+    // { property: "og:url", content: "https://yourdomain.com/" },
+    // { property: "og:image", content: "https://yourdomain.com/social-preview.png" },
+    // Twitter
+    { name: "twitter:card", content: "summary_large_image" },
+    {
+      name: "twitter:title",
+      content:
+        "Accessibility Overlay Parody – Why Widgets Are Not Accessibility",
+    },
+    {
+      name: "twitter:description",
+      content:
+        "Experience a parody demo that shows why accessibility overlays frustrate users. Real accessibility comes from WCAG, not widgets.",
+    },
+    {
+      name: "twitter:image",
+      // content: "https://yourdomain.com/social-preview.png",
+    },
+  ];
+}
+
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
