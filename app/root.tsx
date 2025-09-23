@@ -30,22 +30,22 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Basic SEO */}
-        <title>Accessibility Overlay Parody – Why Widgets Are Not Accessibility</title>
+        <title>Accessibility Overlay Parody - Why Widgets Are Not Accessibility</title>
         <meta name="description" content="A parody demo showing how frustrating accessibility overlay widgets can be. Real accessibility is built with WCAG and semantic HTML, not forced plugins." />
         <meta name="keywords" content="accessibility, a11y, accessibility overlay, accessibility widgets, WCAG, web accessibility, semantic HTML, assistive technology, overlays critique, parody" />
 
         {/* Open Graph / Social */}
-        <meta property="og:title" content="Accessibility Overlay Parody – Why Widgets Are Not Accessibility" />
+        <meta property="og:title" content="Accessibility Overlay Parody - Why Widgets Are Not Accessibility" />
         <meta property="og:description" content="Try filling out a form using a fake accessibility widget, then learn why overlays are not the solution. A parody demo about real accessibility." />
         <meta property="og:type" content="website" />
-        {/* <meta property="og:url" content="https://yourdomain.com/" /> */}
-        {/* <meta property="og:image" content="https://yourdomain.com/social-preview.png" /> */}
+        <meta property="og:url" content="https://accessibility-overlay-parody.kevinccbsg.workers.dev/" />
+        <meta property="og:image" content="https://accessibility-overlay-parody.kevinccbsg.workers.dev/web-app-manifest-512x512.png" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Accessibility Overlay Parody – Why Widgets Are Not Accessibility" />
+        <meta name="twitter:title" content="Accessibility Overlay Parody - Why Widgets Are Not Accessibility" />
         <meta name="twitter:description" content="Experience a parody demo that shows why accessibility overlays frustrate users. Real accessibility comes from WCAG, not widgets." />
-        {/* <meta name="twitter:image" content="https://yourdomain.com/social-preview.png" /> */}
+        <meta name="twitter:image" content="https://accessibility-overlay-parody.kevinccbsg.workers.dev/web-app-manifest-512x512.png" />
         {/* Favicons */}
         <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

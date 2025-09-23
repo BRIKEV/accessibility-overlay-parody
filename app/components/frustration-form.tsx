@@ -82,6 +82,7 @@ export function FrustrationForm() {
                     <Label htmlFor="name">Name</Label>
                     <Input
                       id="name"
+                      autoComplete="off"
                       value={formData.name}
                       onChange={(e) => handleDirectInput()}
                       onFocus={handleDirectInput}
