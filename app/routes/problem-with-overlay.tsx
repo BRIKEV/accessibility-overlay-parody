@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 import { Button } from "../components/ui/button"
+import { Footer } from "../components/footer"
 import {
   CheckCircle,
   XCircle,
@@ -165,9 +166,7 @@ export default function EducationalContent() {
           <div className="space-y-4">
             <h2 className="text-3xl font-bold">Ready to Build Real Accessibility?</h2>
             <p className="text-lg opacity-90 max-w-2xl mx-auto">
-              {
-                "Stop relying on overlay widgets. Start building websites that are accessible by design and work seamlessly with assistive technologies."
-              }
+              Stop relying on overlay widgets. Start building websites that are accessible by design and work seamlessly with assistive technologies.
             </p>
           </div>
 
@@ -176,6 +175,7 @@ export default function EducationalContent() {
               <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" rel="noopener noreferrer">
                 <Lightbulb className="h-4 w-4" />
                 Learn WCAG Guidelines
+                <span className="sr-only"> (opens in new tab)</span>
                 <ExternalLink className="h-4 w-4" />
               </a>
             </Button>
@@ -188,6 +188,7 @@ export default function EducationalContent() {
             >
               <a href="https://webaim.org/" target="_blank" rel="noopener noreferrer">
                 WebAIM Resources
+                <span className="sr-only"> (opens in new tab)</span>
                 <ExternalLink className="h-4 w-4" />
               </a>
             </Button>
@@ -195,16 +196,7 @@ export default function EducationalContent() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm">
-            This demonstration was created to educate about the importance of proper web accessibility. 
-            <br />
-            Real accessibility comes from inclusive design, not overlay widgets.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
