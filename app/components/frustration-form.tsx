@@ -61,7 +61,7 @@ export function FrustrationForm() {
         <div className="text-center space-y-4 mb-8">
           <h1 className="text-4xl font-bold text-foreground">Contact Us</h1>
             <p className="text-lg text-muted-foreground">
-            Use this accessible contact form to reach out to us. Our integrated widget ensures everyone can interact with the form easily, regardless of their input method.
+            Experience our "revolutionary" accessible contact form! Don't worry about using your keyboard or mouse like you normally would - we've disabled those for your own good.
             </p>
         </div>
 
@@ -101,7 +101,7 @@ export function FrustrationForm() {
                     <div className="flex items-center gap-2 text-destructive">
                       <AlertTriangle className="h-4 w-4" />
                       <p className="text-sm font-medium">
-                        Direct input disabled! Please use the accessibility widget to interact with this form.
+                        Oh no! We've detected you trying to use this form like you normally would. Please use our amazing widget instead - we know what's best for you!
                       </p>
                     </div>
                   </div>
@@ -115,12 +115,12 @@ export function FrustrationForm() {
                 <div className="flex items-start gap-3">
                   <Keyboard className="h-5 w-5 text-white" />
                   <div>
-                    <h3 className="font-semibold text-secondary-foreground mb-2">How to use this form:</h3>
+                    <h3 className="font-semibold text-secondary-foreground mb-2">Mandatory Instructions (Because You Need Them):</h3>
                     <ul className="text-sm text-secondary-foreground space-y-1">
-                      <li>• Keyboard and mouse input are disabled for better accessibility</li>
-                      <li>• Use the accessibility widget on the right</li>
-                      <li>• Navigate using the widget's virtual controls</li>
-                      <li>• This ensures equal access for all users</li>
+                      <li>• Your keyboard and mouse don't work here (we fixed that for you!)</li>
+                      <li>• You MUST use our special widget - no exceptions</li>
+                      <li>• Follow our slow, cumbersome virtual controls</li>
+                      <li>• Trust us, this is definitely better than normal web forms</li>
                     </ul>
                   </div>
                 </div>
@@ -144,7 +144,7 @@ export function FrustrationForm() {
                 <CardContent className="pt-6 text-center">
                   <div className="animate-pulse">
                     <Settings className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-                    <p className="text-muted-foreground">Loading accessibility widget...</p>
+                    <p className="text-muted-foreground">Loading your mandatory accessibility solution...</p>
                   </div>
                 </CardContent>
               </Card>

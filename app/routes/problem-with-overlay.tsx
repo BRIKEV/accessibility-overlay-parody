@@ -57,8 +57,8 @@ export default function EducationalContent() {
             <CheckCircle className="h-4 w-4" />
             Congratulations! You experienced the frustration.
           </div>
-
-          <h1 className="text-5xl font-bold text-foreground text-balance">That Was Painful, Right?</h1>
+          <h1 className="sr-only">Accessibility Frustration</h1>
+          <h2 className="text-5xl font-bold text-foreground text-balance">That Was Painful, Right?</h2>
 
           <p className="text-xl text-muted-foreground text-balance max-w-3xl mx-auto">
             {
