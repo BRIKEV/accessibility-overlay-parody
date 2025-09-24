@@ -76,7 +76,6 @@ export function FrustrationForm() {
             </p>
         </div>
 
-<<<<<<< Updated upstream
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           {/* Form Section */}
           <div className="space-y-6">
@@ -142,12 +141,6 @@ export function FrustrationForm() {
           </div>
 
           <div className="lg:sticky lg:top-4">
-=======
-        {/* Mobile-first layout: Widget on top for small screens */}
-        <div className="space-y-8">
-          {/* Widget Section - Shows first on mobile */}
-          <div className="md:hidden">
->>>>>>> Stashed changes
             {showWidget ? (
               <AccessibilityWidget
                 formData={formData}
