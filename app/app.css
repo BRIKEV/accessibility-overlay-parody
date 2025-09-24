@@ -145,7 +145,7 @@
 }
 
 .virtual-cursor {
-  position: absolute;
+  position: fixed;
   width: 20px;
   height: 20px;
   background: #8b5cf6; /* Soft purple cursor */
@@ -154,6 +154,8 @@
   z-index: 1001;
   transition: all 0.3s ease;
   box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+  /* Convert document coordinates to viewport coordinates */
+  transform: translate(-50%, -50%);
 }
 
 .virtual-cursor::after {

@@ -32,7 +32,16 @@ export function AccessibilityWidget({
   onCursorMove,
   onTypingState,
 }: AccessibilityWidgetProps) {
-  const [internalCursorPosition, setInternalCursorPosition] = useState({ x: 200, y: 200 })
+  const [internalCursorPosition, setInternalCursorPosition] = useState(() => {
+    // Initialize cursor position in the center of the viewport
+    if (typeof window !== 'undefined') {
+      return {
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2
+      }
+    }
+    return { x: 200, y: 200 }
+  })
   const [activeField, setActiveField] = useState<string | null>(null)
   const [showKeyboard, setShowKeyboard] = useState(false)
   const [isTyping, setIsTyping] = useState(false)
@@ -42,18 +51,27 @@ export function AccessibilityWidget({
   const moveCursor = (direction: string) => {
     const newPosition = { ...currentCursorPosition }
     const step = 20
+    
+    // Get current scroll position
+    const scrollX = window.pageXOffset || document.documentElement.scrollLeft
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop
+    
+    // Calculate document bounds (including scroll)
+    const maxX = Math.max(document.documentElement.scrollWidth, window.innerWidth) - 20
+    const maxY = Math.max(document.documentElement.scrollHeight, window.innerHeight) - 20
+    
     switch (direction) {
       case "up":
-        newPosition.y = Math.max(0, newPosition.y - step)
+        newPosition.y = Math.max(scrollY, newPosition.y - step)
         break
       case "down":
-        newPosition.y = Math.min(window.innerHeight - 20, newPosition.y + step)
+        newPosition.y = Math.min(maxY, newPosition.y + step)
         break
       case "left":
-        newPosition.x = Math.max(0, newPosition.x - step)
+        newPosition.x = Math.max(scrollX, newPosition.x - step)
         break
       case "right":
-        newPosition.x = Math.min(window.innerWidth - 20, newPosition.x + step)
+        newPosition.x = Math.min(maxX, newPosition.x + step)
         break
     }
 
@@ -62,7 +80,29 @@ export function AccessibilityWidget({
   }
 
   const simulateClick = () => {
-    const element = document.elementFromPoint(currentCursorPosition.x, currentCursorPosition.y)
+    // Convert document coordinates to viewport coordinates
+    const scrollX = window.pageXOffset || document.documentElement.scrollLeft
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop
+    
+    const viewportX = currentCursorPosition.x - scrollX
+    const viewportY = currentCursorPosition.y - scrollY
+    
+    // If cursor is outside viewport, scroll to make it visible
+    if (viewportX < 0 || viewportX > window.innerWidth || 
+        viewportY < 0 || viewportY > window.innerHeight) {
+      window.scrollTo({
+        left: currentCursorPosition.x - window.innerWidth / 2,
+        top: currentCursorPosition.y - window.innerHeight / 2,
+        behavior: 'smooth'
+      })
+      // Wait for scroll to complete before trying to click
+      setTimeout(() => {
+        simulateClick()
+      }, 500)
+      return
+    }
+    
+    const element = document.elementFromPoint(viewportX, viewportY)
     console.log(element)
     if (element) {
       const input = element.closest("input, textarea")
@@ -73,6 +113,8 @@ export function AccessibilityWidget({
           setActiveField(field)
           setShowKeyboard(true)
           console.log("[v0] Clicked on field:", field)
+          // Scroll input into view for better mobile experience
+          input.scrollIntoView({ behavior: 'smooth', block: 'center' })
         }
       } else if (element.closest('button[type="submit"]')) {
         if (isFormComplete) {
@@ -191,7 +233,7 @@ export function AccessibilityWidget({
                   {activeField ? `Typing in: ${activeField}` : "Click on a field first"}
                 </p>
                 {keyboardRows.map((row, rowIndex) => (
-                  <div key={rowIndex} className="flex gap-1 justify-center">
+                  <div key={rowIndex} className="flex gap-0.5 md:gap-1 justify-center">
                     {row.map((key) => (
                       <Button
                         key={key}
@@ -200,9 +242,9 @@ export function AccessibilityWidget({
                         onClick={() => typeCharacter(key)}
                         disabled={!activeField}
                         className={`
-                          text-xs min-w-[32px] h-8
+                          text-xs min-w-[28px] h-7 md:min-w-[32px] md:h-8
                           ${key === "SPACE" ? "flex-1" : ""}
-                          ${key === "BACKSPACE" ? "min-w-[60px]" : ""}
+                          ${key === "BACKSPACE" ? "min-w-[50px] md:min-w-[60px]" : ""}
                           bg-white/10 border-white/20 text-white hover:bg-white/20
                           disabled:opacity-50
                         `}
