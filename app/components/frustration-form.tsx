@@ -76,71 +76,10 @@ export function FrustrationForm() {
             </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
-          {/* Form Section */}
-          <div className="space-y-6">
-            <Card className={`${shakeForm ? "shake" : ""} ${attemptedDirectInput ? "pulse-warning" : ""}`}>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <MousePointer className="h-5 w-5" />
-                  Get Started
-                </CardTitle>
-                <CardDescription>Please fill out your name</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit}>
-                  <div className="my-4">
-                    <Label htmlFor="name">Name</Label>
-                    <Input
-                      id="name"
-                      autoComplete="off"
-                      value={formData.name}
-                      onChange={(e) => handleDirectInput()}
-                      onFocus={handleDirectInput}
-                      onClick={handleDirectInput}
-                      placeholder="Enter your full name"
-                      className="cursor-not-allowed"
-                    />
-                  </div>
-
-                  <Button type="submit" className="w-full" disabled={!isFormComplete}>
-                    Send Message
-                  </Button>
-                </form>
-
-                {attemptedDirectInput && (
-                  <div className="mt-4 p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
-                    <div className="flex items-center gap-2 text-destructive">
-                      <AlertTriangle className="h-4 w-4" />
-                      <p className="text-sm font-medium">
-                        Oh no! We've detected you trying to use this form like you normally would. Please use our amazing widget instead - we know what's best for you!
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Instructions */}
-            <Card className="bg-secondary border-secondary">
-              <CardContent>
-                <div className="flex items-start gap-3">
-                  <Keyboard className="h-5 w-5 text-white" />
-                  <div>
-                    <h3 className="font-semibold text-secondary-foreground mb-2">Mandatory Instructions (Because You Need Them):</h3>
-                    <ul className="text-sm text-secondary-foreground space-y-1">
-                      <li>• Your keyboard and mouse don't work here (we fixed that for you!)</li>
-                      <li>• You MUST use our special widget - no exceptions</li>
-                      <li>• Follow our slow, cumbersome virtual controls</li>
-                      <li>• Trust us, this is definitely better than normal web forms</li>
-                    </ul>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="lg:sticky lg:top-4">
+        {/* Mobile-first layout: Widget on top for small screens */}
+        <div className="space-y-8">
+          {/* Widget Section - Shows first on mobile */}
+          <div className="md:hidden">
             {showWidget ? (
               <AccessibilityWidget
                 formData={formData}
@@ -181,6 +120,7 @@ export function FrustrationForm() {
                       <Label htmlFor="name">Name</Label>
                       <Input
                         id="name"
+                        autoComplete="off"
                         value={formData.name}
                         onChange={(e) => handleDirectInput()}
                         onFocus={handleDirectInput}
